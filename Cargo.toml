@@ -17,4 +17,3 @@ path = "src/lib.rs"
 [dependencies]
 num = "0.1.34"
 image = "0.13.0"
-rayon = "0.4.0"
