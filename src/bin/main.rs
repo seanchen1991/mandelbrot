@@ -8,7 +8,8 @@ use mandelbrot::{
     parse_pair,
     parse_complex,
     render,
-    write_image
+    write_image,
+    pixel_to_point
 };
 
 fn main() {
