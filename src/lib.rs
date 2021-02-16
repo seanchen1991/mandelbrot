@@ -35,7 +35,7 @@ fn escape_time(c: Complex<f64>, limit: u32) -> Option<u32> {
 /// both strings that can be parsed by `T::from_str`.
 /// 
 /// If `s` has the proper form, return `Some(x, y)`. If it doesn't, return None.
-fn parse_pair<T: FromStr>(s: &str, separator: char) -> Option<(T, T)> {
+pub fn parse_pair<T: FromStr>(s: &str, separator: char) -> Option<(T, T)> {
     if let Some(index) = s.find(separator) {
         match (T::from_str(&s[..index]), T::from_str(&s[index + 1..])) {
             (Ok(l), Ok(r)) => Some((l, r)),
@@ -48,7 +48,7 @@ fn parse_pair<T: FromStr>(s: &str, separator: char) -> Option<(T, T)> {
 
 /// Parse a pair of floating-point numbers separated by a comma as a
 /// complex number.
-fn parse_complex(s: &str) -> Option<Complex<f64>> {
+pub fn parse_complex(s: &str) -> Option<Complex<f64>> {
     if let Some((re, im)) = parse_pair(s, ',') {
         Some(Complex { re, im })
     } else {
@@ -83,7 +83,7 @@ fn pixel_to_point(
 /// which holds one grayscale pixel per byte. The `upper_left` and `lower_right`
 /// arguments specify points on the complex plane corresponding to the upper-
 /// left and lower-right corners of the pixel buffer.
-fn render(
+pub fn render(
     pixels: &mut [u8],
     bounds: (usize, usize),
     upper_left: Complex<f64>,
@@ -105,7 +105,7 @@ fn render(
 
 /// Write the contents of the `pixel` buffer, whose dimensions are given
 /// by `bounds`, to the specified file.
-fn write_image(
+pub fn write_image(
     filename: &str, 
     pixels: &[u8], 
     bounds: (usize, usize)

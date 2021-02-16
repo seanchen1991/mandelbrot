@@ -2,7 +2,12 @@ use std::env;
 use std::process;
 use std::io::{self, Write};
 
-use mandelbrot::*;
+use mandelbrot::{
+    parse_pair,
+    parse_complex,
+    render,
+    write_image
+};
 
 fn main() {
     let args: Vec<String> = env::args().collect();
