@@ -1,9 +1,8 @@
-use std::fs::File;
 use std::str::FromStr;
+use std::error::Error;
 
 use num::Complex;
-use image::ColorType;
-use image::png::PNGEncoder;
+use image::{self, ColorType};
 
 /// Determine if `c` is in the Mandelbrot set or not, based in part
 /// on the `limit` parameter, which specifies how many "attempts"
@@ -109,16 +108,8 @@ pub fn write_image(
     filename: &str, 
     pixels: &[u8], 
     bounds: (usize, usize)
-) -> Result<(), std::io::Error> {
-    let output = File::create(filename)?;
-    let encoder = PNGEncoder::new(output);
-
-    encoder.encode(
-        &pixels, 
-        bounds.0 as u32, 
-        bounds.1 as u32, 
-        ColorType::Gray(8)
-    )?;
+) -> Result<(), Box<dyn Error>> {
+    image::save_buffer(filename, pixels, bounds.0 as u32, bounds.1 as u32, ColorType::L8)?;
 
     Ok(())
 }
